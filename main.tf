@@ -16,9 +16,7 @@ data "google_service_account_access_token" "sa" {
   provider               = google.tokengen
   target_service_account = var.service_account_impersonate_target
   lifetime               = "600s"
-scopes = [
-    "https://www.googleapis.com/auth/cloud-platform",
-  ]
+  scopes                 = ["userinfo-email", "cloud-platform"]
 }
 /******************************************
   GA Provider configuration
