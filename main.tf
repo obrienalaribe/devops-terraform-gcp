@@ -6,14 +6,14 @@
 //}
 
 provider "google" {
-  alias   = "tokengen"
+//  alias   = "tokengen"
 }
 data "google_client_config" "default" {
-  provider = google.tokengen
+  provider = google
 }
 
 data "google_service_account_access_token" "sa" {
-  provider               = google.tokengen
+  provider               = google
   target_service_account = var.service_account_impersonate_target
   lifetime               = "600s"
   scopes                 = ["userinfo-email", "cloud-platform"]
