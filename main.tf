@@ -23,18 +23,18 @@ scopes = [
 /******************************************
   GA Provider configuration
  *****************************************/
-provider "google" {
-  access_token = data.google_service_account_access_token.sa.access_token
-  project      = var.project
-}
-/******************************************
-  Beta Provider configuration
- *****************************************/
-provider "google-beta" {
-  access_token = data.google_service_account_access_token.sa.access_token
-  project      = var.project
-}
-resource "google_storage_bucket" "test" {
-  name     = "sa-impersonation-demo"
-  location = var.region
-}
+//provider "google" {
+//  access_token = data.google_service_account_access_token.sa.access_token
+//  project      = var.project
+//}
+///******************************************
+//  Beta Provider configuration
+// *****************************************/
+//provider "google-beta" {
+//  access_token = data.google_service_account_access_token.sa.access_token
+//  project      = var.project
+//}
+//resource "google_storage_bucket" "test" {
+//  name     = "sa-impersonation-demo"
+//  location = var.region
+//}
