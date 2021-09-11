@@ -25,22 +25,13 @@ workflows:
       - test
       - slack/on-hold:
           context: slack-secrets
-          filters:
-            branches:
-              only: master
           requires:
             - test
       - pause_workflow:
-          filters:
-            branches:
-              only: master
           requires:
             - test
             - slack/on-hold
           type: approval
       - deploy:
-          filters:
-            branches:
-              only: master
           requires:
             - pause_workflow
