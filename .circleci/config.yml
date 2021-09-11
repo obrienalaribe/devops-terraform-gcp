@@ -8,10 +8,12 @@ jobs:
     steps:
       - run: echo "deploy my app"
       - slack/notify:
+          context: slack-secrets
           event: fail
           mentions: '@EngineeringTeam'
           template: basic_fail_1
       - slack/notify:
+          context: slack-secrets
           event: pass
           template: success_tagged_deploy_1
   test:
