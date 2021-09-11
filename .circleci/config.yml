@@ -9,7 +9,7 @@ jobs:
       - run: exit -1
       - slack/notify:
           event: fail
-          mentions: '@EngineeringTeam'
+          mentions: '@caal'
           template: basic_fail_1
       - slack/notify:
           event: pass
