@@ -30,7 +30,7 @@ jobs:
             \"$TERRAFORM_TOKEN\"}" > $HOME/.terraformrc
           name: Create .terraformrc file locally
       - run:
-          command: cat $HOME/.terraformrc
+          command: cat ~/backend.hcl
           name: Check Terraform token
       - terraform/fmt:
           path: .
@@ -43,6 +43,8 @@ jobs:
       - terraform/plan:
           backend_config_file: ~/backend.hcl
           path: .
+  working_directory: ~/
+
 workflows:
   deploy-gcp-project:
     jobs:
