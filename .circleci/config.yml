@@ -35,10 +35,10 @@ jobs:
           path: .
       - terraform/init:
           backend: true
-          backend_config_file: backend.tf
+          backend_config_file: backend.hcl
           path: .
       - terraform/plan:
-          backend_config_file: backend.tf
+          backend_config_file: backend.hcl
           path: .
 workflows:
   deploy-gcp-project:
