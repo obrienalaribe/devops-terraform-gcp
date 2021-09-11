@@ -1,4 +1,6 @@
-
+variable "activate_apis" {
+  default = ["cloudbilling.googleapis.com", "cloudresourcemanager.googleapis.com"]
+}
 module "project-bootstrap" {
   source          = "terraform-google-modules/project-factory/google//modules/fabric-project"
   version         = "~> 10.1.1"
@@ -6,6 +8,7 @@ module "project-bootstrap" {
   name            = "org-bootstrap"
   parent          = "folders/${var.folder_id}"
   prefix          = "oa"
+  activate_apis   = var.activate_apis
 }
 
 
