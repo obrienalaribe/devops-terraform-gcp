@@ -6,14 +6,12 @@ jobs:
     docker:
       - image: 'cimg/base:stable'
     steps:
-      - run: echo "deploy my app"
+      - run: echo "deployed"
       - slack/notify:
-          context: slack-secrets
           event: fail
-          mentions: '@EngineeringTeam'
+          mentions: '@caal'
           template: basic_fail_1
       - slack/notify:
-          context: slack-secrets
           event: pass
           template: success_tagged_deploy_1
   test:
@@ -35,5 +33,6 @@ workflows:
             - slack/on-hold
           type: approval
       - deploy:
+          context: slack-secrets
           requires:
             - pause_workflow
