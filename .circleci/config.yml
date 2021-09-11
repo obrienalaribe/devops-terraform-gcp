@@ -30,7 +30,7 @@ jobs:
             \"$TERRAFORM_TOKEN\"}" > $HOME/.terraformrc
           name: Create .terraformrc file locally
       - run:
-          command: cat ~/backend.hcl
+          command: cat backend.hcl
           name: Check Terraform token
       - terraform/fmt:
           path: .
