@@ -1,9 +1,4 @@
-terraform {
-  backend "remote" {
-    organization = "obrien-alaribe"
-
-    workspaces {
-      name = "devops-terraform-gcp"
-    }
-  }
-}
+# backend.hcl
+workspaces { name = "devops-terraform-gcp" }
+hostname     = "app.terraform.io"
+organization = "obrien-alaribe"
