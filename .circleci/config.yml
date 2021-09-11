@@ -37,7 +37,6 @@ jobs:
       - terraform/validate:
           path: .
       - terraform/init:
-          backend: true
           backend_config_file: backend.hcl
           path: .
       - terraform/plan:
