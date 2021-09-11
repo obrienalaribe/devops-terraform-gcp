@@ -37,10 +37,11 @@ jobs:
       - terraform/validate:
           path: .
       - terraform/init:
-          backend_config_file: backend.hcl
+          backend: true
+          backend_config_file: ~/backend.hcl
           path: .
       - terraform/plan:
-          backend_config_file: backend.hcl
+          backend_config_file: ~/backend.hcl
           path: .
 workflows:
   deploy-gcp-project:
