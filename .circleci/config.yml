@@ -37,7 +37,7 @@ jobs:
       - terraform/validate:
           path: .
       - run:
-          command: terraform init -backend-config=backend.hcl
+          command: terraform init -backend=true -backend-config=backend.hcl
           name: Terraform init
       - run:
           command: terraform plan
