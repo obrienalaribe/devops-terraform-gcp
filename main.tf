@@ -1,26 +1,11 @@
-provider "google" {
+
+module "project-bootstrap" {
+  source          = "terraform-google-modules/project-factory/google//modules/fabric-project"
+  version         = "~> 10.1.1"
+  billing_account = var.billing_account_id
+  name            = "org-bootstrap"
+  parent          = "folder/${var.folder_id}"
+  prefix          = "mv"
 }
 
-data "google_client_config" "default" {
-  provider = google
-}
 
-data "google_service_account_access_token" "default" {
-  provider               = google
-  target_service_account = "rh-manager@sa-impersonation-demo.iam.gserviceaccount.com"
-  scopes                 = ["userinfo-email", "cloud-platform"]
-  lifetime               = "300s"
-}
-
-provider "google" {
-  alias        = "impersonated"
-  access_token = data.google_service_account_access_token.default.access_token
-}
-
-data "google_client_openid_userinfo" "me" {
-  provider = google.impersonated
-}
-
-output "target-email" {
-  value = data.google_client_openid_userinfo.me.email
-}

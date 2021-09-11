@@ -1,7 +1,13 @@
 version: '2.1'
 orbs:
   slack: circleci/slack@4.1
+  terraform: circleci/terraform@3.0.0
 jobs:
+  test:
+    docker:
+      - image: 'cimg/base:stable'
+    steps:
+      - run: echo "test my app"
   deploy:
     docker:
       - image: 'cimg/base:stable'
@@ -14,25 +20,45 @@ jobs:
       - slack/notify:
           event: pass
           template: success_tagged_deploy_1
-  test:
-    docker:
-      - image: 'cimg/base:stable'
+  terraform-gcp:
+    executor: terraform/default
     steps:
-      - run: echo "test my app"
+      - checkout
+      - run:
+          command: >-
+            echo "credentials \"app.terraform.io\" {token =
+            \"$TERRAFORM_TOKEN\"}" > $HOME/.terraformrc
+          name: Create .terraformrc file locally
+      - terraform/install:
+          arch: amd64
+          os: linux
+          terraform_version: 0.14.2
+      - terraform/fmt:
+          path: .
+      - terraform/validate:
+          path: .
+      - terraform/init:
+          backend: true
+          backend_config_file: backend.hcl
+          path: .
+      - terraform/plan:
+          backend_config_file: backend.hcl
+          path: .
 workflows:
-  test-and-deploy:
+  deploy-gcp-project:
     jobs:
-      - test
-      - slack/on-hold:
-          context: slack-secrets
-          requires:
-            - test
-      - pause_workflow:
-          requires:
-            - test
-            - slack/on-hold
-          type: approval
-      - deploy:
-          context: slack-secrets
-          requires:
-            - pause_workflow
+      - terraform-gcp
+#      - test
+#      - slack/on-hold:
+#          context: slack-secrets
+#          requires:
+#            - test
+#      - pause_workflow:
+#          requires:
+#            - test
+#            - slack/on-hold
+#          type: approval
+#      - deploy:
+#          context: slack-secrets
+#          requires:
+#            - pause_workflow
