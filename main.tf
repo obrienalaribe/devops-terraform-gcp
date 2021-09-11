@@ -4,7 +4,7 @@ module "project-bootstrap" {
   version         = "~> 10.1.1"
   billing_account = var.billing_account_id
   name            = "org-bootstrap"
-  parent          = "folder/${var.folder_id}"
+  parent          = "folders/${var.folder_id}"
   prefix          = "mv"
 }
 
